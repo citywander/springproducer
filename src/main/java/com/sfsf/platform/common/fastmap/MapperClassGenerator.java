@@ -6,6 +6,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -16,7 +17,6 @@ import javassist.LoaderClassPath;
 public class MapperClassGenerator {
     
     public MapperClassGenerator() {
-        
     }
     
     public <T> Class<T> generate(Class<T> type) throws CannotCompileException, IntrospectionException {
@@ -27,12 +27,10 @@ public class MapperClassGenerator {
 
         String pkgName = type.getPackage().getName();
         String className = pkgName + "." + type.getSimpleName() + mapper.implSuffixName();
-        System.out.println(className);
         CtClass ct = pool.makeClass(className);
         ct.setInterfaces(new CtClass[]{pool.makeInterface(type.getName())});
         renderMapperMethod(type, ct);
-        //pool.importPackage("java.awt");
-        Class<T> to = ct.toClass();
+        Class<T> to = (Class<T>)ct.toClass();
         return to;
     }
     
@@ -77,9 +75,32 @@ public class MapperClassGenerator {
                 readPd = mappingDict.get(pd.getName());
             }
             if (pd.getWriteMethod() != null && !"class".equals(pd.getName())) {
-                Method srcReadMethod = new PropertyDescriptor(readPd, srcType).getReadMethod();
+                Method srcReadMethod = null;
+                try {
+                    srcReadMethod = new PropertyDescriptor(readPd, srcType).getReadMethod();
+                } catch (IntrospectionException e) {
+                    continue;
+                }
+                mappingDict.remove(pd.getName());
                 sb.append("r.").append(pd.getWriteMethod().getName()).append("(").append("p0.").append(srcReadMethod.getName()).append("());");
                 sb.append("\n");
+            }
+        }
+        for(Entry<String, String> stEntry: mappingDict.entrySet()) {
+            String targetFn = stEntry.getKey();
+            String[] targetFns = targetFn.split("[.]");
+            for (int i = 0; i < targetFns.length; i++) {
+                try {
+                    PropertyDescriptor targetWriteMethod = new PropertyDescriptor(targetFns[i], targetType);
+                    Class<?> propType = targetWriteMethod.getPropertyType();
+                    if (!propType.getName().startsWith("java")) {
+                        String param = propType.getSimpleName().toLowerCase() + i;
+                        sb.append(propType.getName()).append(" ");
+                        sb.append(param).append(" = new " + propType.getName() + "();\n");
+                    }
+                } catch (IntrospectionException e) {
+                    continue;
+                }
             }
         }
         
