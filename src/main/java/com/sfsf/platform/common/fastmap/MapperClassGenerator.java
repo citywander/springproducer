@@ -36,6 +36,7 @@ public class MapperClassGenerator {
     
     private <T> void renderMapperMethod(Class<T> type, CtClass ct) throws CannotCompileException, IntrospectionException {
         Method[] methods = type.getDeclaredMethods();
+        
         for (Method method: methods) {
             StringBuilder sb = new StringBuilder();
             if (method.isDefault()) {
