@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.0.BUILD-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sfsf.spring.cdc</groupId>
 	<artifactId>producer</artifactId>
@@ -16,7 +17,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 		<spring-cloud-contract.version>2.0.2.RELEASE</spring-cloud-contract.version>
 		<sentinel.version>2.1.0.RELEASE</sentinel.version>
 	</properties>
@@ -31,6 +32,10 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
@@ -38,16 +43,20 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
-		 <dependency>
-		     <groupId>com.alibaba.cloud</groupId>
-		     <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-		     <version>${sentinel.version}</version>
-		 </dependency>
-		 <dependency>
-		     <groupId>org.javassist</groupId>
-		     <artifactId>javassist</artifactId>
-		     <version>3.24.0-GA</version>
-		 </dependency>		 
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+			<version>${sentinel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.24.0-GA</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -87,7 +96,7 @@
 					<baseClassForTests>com.sfsf.spring.cdc.producer.SpringproducerApplicationTests</baseClassForTests>
 					<testMode>EXPLICIT</testMode>
 				</configuration>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 
