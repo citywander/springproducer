@@ -1,10 +1,14 @@
 package com.sfsf.spring.cdc.producer.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +27,10 @@ public class UserDetails {
     private String email;
     @Column
     private String password;
+    
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<UserAddress> addresses;
 
     public UserDetails() {
     }
@@ -67,4 +75,12 @@ public class UserDetails {
         this.password = password;
     }
 
+    public List<UserAddress> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<UserAddress> addresses) {
+        this.addresses = addresses;
+    }
+    
 }

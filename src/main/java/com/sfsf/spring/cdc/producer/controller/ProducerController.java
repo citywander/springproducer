@@ -1,7 +1,10 @@
 package com.sfsf.spring.cdc.producer.controller;
 
 import java.util.List;
+
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.sfsf.spring.cdc.producer.ErrorMsg;
+import com.sfsf.spring.cdc.producer.model.UserAddress;
 import com.sfsf.spring.cdc.producer.model.UserDetails;
+import com.sfsf.spring.cdc.producer.repo.UserAddressRepository;
 import com.sfsf.spring.cdc.producer.repo.UserRepository;
 
 @RestController
@@ -21,6 +27,9 @@ public class ProducerController {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserAddressRepository addressRepository;
     
     @RequestMapping(value = "/errors", method = RequestMethod.GET)
     public ErrorMsg getBooks() {
@@ -40,11 +49,24 @@ public class ProducerController {
         return userRepository.findAll(getUserDetailsByName(email));
     }
     
+    @RequestMapping(value = "/UserAddress/{userId}", method = RequestMethod.GET)
+    public List<UserAddress> getUserAddress(@PathVariable Long userId) {
+        return addressRepository.findAll(getUserAddressById(userId));
+    }
+    
+    public static Specification<UserAddress> getUserAddressById(Long userId) {
+        return (root, query, criteriaBuilder) -> {
+            //Root parentRoot = criteriaBuilder.
+            Predicate predicate = criteriaBuilder.equal(root.get("id"), userId);
+            return predicate;
+        };
+      }
+    
     public static Specification<UserDetails> getUserDetailsByName(String email) {
       return (root, query, criteriaBuilder) -> {
         Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + email + "%");
         return predicate;
       };
-  }
+    }
 
 }
