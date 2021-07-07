@@ -1,18 +1,16 @@
 package com.sfsf.spring.cdc.producer.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sfsf.spring.cdc.producer.ErrorMsg;
 import com.sfsf.spring.cdc.producer.model.UserAddress;
 import com.sfsf.spring.cdc.producer.model.UserDetails;
@@ -52,6 +50,13 @@ public class ProducerController {
     @RequestMapping(value = "/UserAddress/{userId}", method = RequestMethod.GET)
     public List<UserAddress> getUserAddress(@PathVariable Long userId) {
         return addressRepository.findAll(getUserAddressById(userId));
+    }
+    
+    @RequestMapping(value = "/UserAddress", method = RequestMethod.POST)
+    public UserAddress addUserAddress(@RequestBody UserAddress userAddress) {
+      //Optional<UserDetails> user = userRepository.findById(1L);
+      //userAddress.setUser(user.get());
+      return addressRepository.save(userAddress);
     }
     
     public static Specification<UserAddress> getUserAddressById(Long userId) {

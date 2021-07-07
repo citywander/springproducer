@@ -32,8 +32,7 @@ public class UserDetails {
     @Column
     private String password;
     
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy="user")
     private List<UserAddress> addresses;
 
     public UserDetails() {
