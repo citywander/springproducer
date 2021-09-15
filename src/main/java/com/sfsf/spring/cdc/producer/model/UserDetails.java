@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,8 +33,8 @@ public class UserDetails {
     @Column
     private String password;
     
-    @OneToMany(mappedBy="user")
-    private List<UserAddress> addresses;
+//    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+//    private List<UserAddress> addresses;
 
     public UserDetails() {
     }
@@ -78,12 +79,12 @@ public class UserDetails {
         this.password = password;
     }
 
-    public List<UserAddress> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<UserAddress> addresses) {
-        this.addresses = addresses;
-    }
+//    public List<UserAddress> getAddresses() {
+//        return addresses;
+//    }
+//
+//    public void setAddresses(List<UserAddress> addresses) {
+//        this.addresses = addresses;
+//    }
     
 }

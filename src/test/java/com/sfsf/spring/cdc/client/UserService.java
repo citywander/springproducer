@@ -1,7 +1,6 @@
 package com.sfsf.spring.cdc.client;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @ResilienceClient(fallback=UserServiceCallback.class)
 public abstract class UserService {
@@ -13,7 +12,6 @@ public abstract class UserService {
    * @return
    */
   @RequestMapping("GET /greeting")
-  @CircuitBreaker(name = "BACKEND", fallbackMethod = "fallback")
   abstract String getGreeting();
   
   @RequestMapping("POST /greeting")            
