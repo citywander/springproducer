@@ -6,8 +6,8 @@
 package org.mapstruct.itest.java8;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
 
 /**
  * Test for generation of Java8 based mapper implementations.

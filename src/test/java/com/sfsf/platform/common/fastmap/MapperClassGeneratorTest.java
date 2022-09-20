@@ -1,24 +1,21 @@
 package com.sfsf.platform.common.fastmap;
 
-import static org.junit.Assert.assertEquals;
 
 import java.beans.IntrospectionException;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
 
 public class MapperClassGeneratorTest {
 
     private static Class<UserMapper> stm;
 
-    @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         MapperClassGenerator generator = new MapperClassGenerator();
         stm = generator.generate(UserMapper.class);
     }
 
-    @AfterClass
     public static void tearDownAfterClass() throws Exception {}
 
     @Test

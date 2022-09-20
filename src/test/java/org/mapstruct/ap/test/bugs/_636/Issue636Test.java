@@ -5,9 +5,9 @@
  */
 package org.mapstruct.ap.test.bugs._636;
 
-import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 public class Issue636Test {
 
