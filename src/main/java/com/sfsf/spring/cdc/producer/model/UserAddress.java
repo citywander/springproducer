@@ -1,6 +1,7 @@
 package com.sfsf.spring.cdc.producer.model;
 
 import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -28,6 +31,10 @@ public class UserAddress {
     
     @Column
     private String address;
+    
+    @Column
+    @NotNull
+    private String province;
     
     @CreatedBy
     @Column(nullable = false, updatable = false)
@@ -104,5 +111,14 @@ public class UserAddress {
     public void setUser(UserDetails user) {
       this.user = user;
     }
+
+    public String getProvince() {
+      return province;
+    }
+
+    public void setProvince(String province) {
+      this.province = province;
+    }
+    
     
 }
