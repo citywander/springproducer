@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.util.UrlPathHelper;
 
 @Service
 @Priority(-1)
@@ -21,7 +22,7 @@ public class CustomRequestMappingHandlerMapping extends RequestMappingHandlerMap
             if (lookupPath.contains("UserAddress")) {
                 lookupPath = lookupPath.replaceAll("UserAddress1", "UserAddress");
             }
-            request.setAttribute(LOOKUP_PATH, lookupPath);
+            request.setAttribute(UrlPathHelper.PATH_ATTRIBUTE, lookupPath);
             HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
             return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
     }
