@@ -2,8 +2,6 @@ package com.sfsf.spring.cdc.producer.controller;
 
 import java.util.List;
 
-import javax.persistence.criteria.Predicate;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,6 +17,8 @@ import com.sfsf.spring.cdc.producer.model.UserAddress;
 import com.sfsf.spring.cdc.producer.model.UserDetails;
 import com.sfsf.spring.cdc.producer.repo.UserAddressRepository;
 import com.sfsf.spring.cdc.producer.repo.UserRepository;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.validation.Valid;
 
 @RestController
 public class ProducerController {

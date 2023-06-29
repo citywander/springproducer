@@ -2,14 +2,14 @@ package com.sfsf.spring.cdc.producer;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Priority;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.util.UrlPathHelper;
+import jakarta.annotation.Priority;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 @Priority(-1)

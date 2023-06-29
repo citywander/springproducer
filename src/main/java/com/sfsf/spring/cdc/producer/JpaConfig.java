@@ -1,23 +1,9 @@
 package com.sfsf.spring.cdc.producer;
 
-import java.util.Properties;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
-import org.springdoc.core.customizers.OpenApiCustomiser;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
-
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
@@ -43,7 +29,7 @@ public class JpaConfig {
 	}
 	
 	@Bean
-	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
+	public OpenApiCustomizer customerGlobalHeaderOpenApiCustomiser() {
 	   return openApi -> openApi.path("/foo",
 	   new PathItem().get(new Operation().operationId("foo").responses(new ApiResponses()
 	   .addApiResponse("default",new ApiResponse().description("")
