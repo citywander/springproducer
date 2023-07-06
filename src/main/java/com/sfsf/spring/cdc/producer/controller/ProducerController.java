@@ -1,5 +1,7 @@
 package com.sfsf.spring.cdc.producer.controller;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 
@@ -32,9 +34,31 @@ public class ProducerController {
     @Autowired
     private UserAddressRepository addressRepository;
     
+    @Autowired
+    private TestReflect testReflect;
+    
     @RequestMapping(value = "/errors", method = RequestMethod.GET)
     public ErrorMsg getBooks() {
-        return new ErrorMsg("123", "Price too large");
+      try {
+        Method m = testReflect.getClass().getMethod("testMethod");
+        m.invoke(testReflect);
+      } catch (NoSuchMethodException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (SecurityException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (IllegalArgumentException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      return new ErrorMsg("123", "Price too large");
         //return new Book(1L, "Alice", 100);
     }
     
