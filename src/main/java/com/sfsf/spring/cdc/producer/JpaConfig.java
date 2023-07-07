@@ -1,7 +1,6 @@
 package com.sfsf.spring.cdc.producer;
 
 import org.springdoc.core.customizers.OpenApiCustomizer;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.Components;
@@ -20,7 +19,8 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 public class JpaConfig {
 	
 	@Bean
-	public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
+	public OpenAPI customOpenAPI() {
+	  String appVersion = "1";
 	   return new OpenAPI()
 	    .components(new Components().addSecuritySchemes("basicScheme",
 	            new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
