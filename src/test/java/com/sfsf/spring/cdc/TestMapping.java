@@ -21,7 +21,7 @@ public class TestMapping {
 		AnnotationParser mapStructParser = new AnnotationParser();
 		mapStructParser.parse(UserMapper.class);
 		List<MethodAnnotationInfo> des= mapStructParser.getAnnotationInfos();
-		assertThat(mapStructParser.getMethodDescriptions(), hasItem("UserMapper.mapDTOToBO"));
+		assertThat(mapStructParser.getMethodDescriptions(), hasItem("UserMapper.toDto"));
 	}
 
 }

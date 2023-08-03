@@ -2,11 +2,13 @@ package com.sfsf.spring.cdc.anno;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapping;
 import org.objectweb.asm.ClassReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -20,11 +22,18 @@ import static java.util.stream.Collectors.toSet;
  */
 public class AnnotationParser {
 
+	private List<String> mapStructAnntotaions = new ArrayList<>();
+
 	private static final Log log = LogFactory.getLog(AnnotationParser.class);
 	private List<MethodAnnotationInfo> annotationInfos = new ArrayList<MethodAnnotationInfo>();
 
 	public List<MethodAnnotationInfo> getAnnotationInfos() {
 		return annotationInfos;
+	}
+
+	public AnnotationParser() {
+		mapStructAnntotaions.add(Mapping.class.getSimpleName());
+		mapStructAnntotaions.add(InheritInverseConfiguration.class.getSimpleName());
 	}
 
 	public Set<String> getMethodDescriptions() {
@@ -47,6 +56,6 @@ public class AnnotationParser {
 	}
 
 	private Predicate<MethodAnnotationInfo> isMapping() {
-		return info -> info.getAnnotationTypeSimple().equals(Mapping.class.getSimpleName());
+		return info -> mapStructAnntotaions.contains(info.getAnnotationTypeSimple());
 	}
 }
