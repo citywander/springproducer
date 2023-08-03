@@ -31,6 +31,7 @@ public class MapperClassGenerator {
         ct.setInterfaces(new CtClass[]{pool.makeInterface(type.getName())});
         renderMapperMethod(type, ct);
         Class<T> to = (Class<T>)ct.toClass();
+
         return to;
     }
     
